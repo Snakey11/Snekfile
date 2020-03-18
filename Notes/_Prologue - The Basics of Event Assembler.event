@@ -1,0 +1,111 @@
+
+// Welcome to Snek's Buildfile Tutorial!
+	// Prologue: The Basics of Event Assembler
+	
+/* Agenda:
+	Why EA buildfiles?
+		Clean builds
+		No/automatic backups (Github can be covered later)
+		Custom organization structure
+		Do we care where in the ROM something goes as long as we can reference it?
+		Full control
+		Space efficiency (even though space is pretty cheap)
+		Very wizardry and debug friendly
+	Basic file structure
+		Running our first build: Basics of MAKEHACK.cmd
+		Build the concept of how a buildfile functions
+		Inside the "Event Assembler" directory
+	EA itself
+		1) BYTE, SHORT, WORD, POIN
+		2) ORG, PUSH, POP, ALIGN
+		3) #define, labels, {}, #undef
+		4) #include family and common includes
+		5) Misc: String(), PROTECT, ASSERT, CURRENTOFFSET, messages
+		6) #ifdef conditions
+		7) Math and hex vs dec
+		8) I really hope I don't forget anything important. ¯\_(ツ)_/¯
+	Moving forward with this series
+		Join as we make a general purpose ready-to-go buildfile as more episodes are added!
+		Next episode: Text insertion?
+*/
+
+BYTE 0 // 0 - 0xFF
+SHORT 6969 // 0 - 0xFFFF
+WORD 0x69696969 // 0 - 0xFFFFFFFF
+
+ORG 0x1000000 // Begin writing at this offset.
+WORD 0x69696969 0x000001
+WORD 0x10101010
+WORD 0x90206090
+PUSH // PUSH saves where we're currently writing to.
+ORG 0x0FFFFE0
+BYTE 11
+POP // POP gets it back.
+BYTE 0x34
+ALIGN 4
+POIN 0x00153236
+ORG 0x1000010
+SHORT 0x420
+
+#define IronSword 1 // Definitions: Very powerful tool. Let EA know what these things represent.
+#define EirikaLord 1
+#define Thing AnotherThing
+#define AnotherThing 3
+
+#define MyMacro(arg) "arg arg arg arg" // Macros! All they are are definitions with parameters.
+
+POIN MyLabel
+BYTE IronSword EirikaLord Thing 0
+WORD 0
+MyLabel: // Labels: Keep track of offsets as they change as you rebuild your ROM.
+WORD MyMacro(3) // == "WORD 3 3 3 3"
+SHORT MyMacro(4) // == "WORD 4 4 4 4"
+ALIGN 4
+POIN MyLabel
+// ClassTable:, CharacterTable:, LukasPortrait:
+
+#include eastdlib.event // EA STandarD LIBrary: Many useful macros and vanilla defs.
+#include "Extensions/Hack Installation.txt" // Mostly for ASM hacks.
+
+BYTE IronSword EirikaLord
+SHORT From_the_Darkness
+
+WORD 0x4040
+#include "AnotherFile.event" // Begin reading an external script.
+WORD 32078
+#incbin "SomeBinaryFile.dmp" // Insert raw binary from this file.
+// ...
+//#incext png2dmp "MyImage.png" // Include with extension (binary)
+//#inctext lyn "MyASM.elf" // Include with extension(text script)
+
+MESSAGE CURRENTOFFSET // CURRENTOFFSET represents the offset to which we are currently writing.
+POIN CURRENTOFFSET
+WARNING "Woah, there"
+//ERROR "STOP, IN THE NAME OF THE LAW!"
+//PROTECT 0x1000000 // Throw an error if this address is written to.
+//ASSERT 3 - 5 // Throw an error if this value is negative.
+
+#define _DEBUG_
+#ifdef _DEBUG_ // If this is defined, then proceed until we hit an #else or #endif.
+	MESSAGE "We're in debug mode."
+#else // If the previous #if[n]def failed, proceed from here until we hit our #endif.
+	MESSAGE "We're NOT in debug mode."
+#endif
+// #ifndef is the opposite of ifdef.
+
+/* Hex vs Dec:
+	0x10 == 16.
+	Event Assembler doesn't give any shits about whether you use decimal or hex.
+	
+	EA is also capable of mathematical things:
+		Arithmetics aka calculating aka math:
+		 The following operations are supported:
+		 +, -, *, /, %, &, |, ^, <<, >>
+		 Dividing with zero naturally causes problems.
+		 The following operations are being included, so don't use them
+		 as part of names or codes:
+		 !, ~
+*/
+WORD 16 * 0x10 - 1
+#define Macro(arg1,arg2) "WORD arg1 * arg2"
+Macro(4,7)
