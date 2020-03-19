@@ -1,0 +1,54 @@
+
+// Welcome to Snek's Buildfile Tutorial!
+	// Chapter 1: Text Insertion
+	
+/* Agenda:
+	Our first external toolset!
+		Warm greetings from text-process-classic.exe, ParseFile.exe, and _AssembleText.cmd
+	Changing single text IDs
+	Changing MANY text IDs incrementally
+	Text definitions
+	#include and a text "baby buildfile"
+	Comments
+	ParseDefinitions.txt
+	Common control codes
+	Basic cutscene text construction
+		The 6 (really 8) face positions
+		Loading faces
+		Speech bubbles, text length, newlines, and blue arrows
+		Moving and clearing	faces
+		Pauses
+		Eye and mouth control
+		Battle text
+		
+Corrections and clarifications from the video:
+	1:00 - Talking about ParseFile.exe and text-process-classic.exe
+		I probably should have mentioned why those .exes exist separately.
+		In an older version of textprocess, it would generate many #incext calls to ParseFile, and Parsefile would be run for every text ID during EA building
+		This would seriously add time to build time, so text-process-classic instead calls ParseFile ahead of time while we're assembling text
+		Then Install Text Data.event can #incbin whatever ParseFile spits out which is MUCH faster than calling ParseFile
+		text-process-classic also knows which text IDs need to be stuck through ParseFile, only the ones which changed, which is great for large text buildfiles
+	7:45 - Antihuffman patch: I meant to say, "I think FEBuilder handles this automatically," not manually.
+	
+Summary of text-process-classic behavior:
+	Formatting text entries is straightforward
+		# (ID) (Optional definition)
+		This text will be inserted at the ID defined.[NL]
+		Text entries must be terminated with [X]
+		
+		## (Optional definition)
+		This text will be inserted at the ID[NL]
+		right AFTER the previous text entry.[X]
+		
+		#include (Relative filepath) is supported.
+		
+		--------------------------------------------- <- is about how long in raw length a normal bubble can be. Keep in mind [A] takes a bit of room as well!
+		----------------------------- <- is about how long a battle text bubble can be.
+		
+		ParseDefinitions.txt allows us to use helper definitions as well as define our own definitions (commonly for loading faces).
+		
+		Links to control code doc will be linked in the video description for this video, and more on text for cutscene construction will be covered during eventing.
+		
+		This is NOT a script that EA runs. We run _AssembleText.bat which should autogenerate "Install Text Data.event" if there are no errors.
+			This file gets included in your buildfile. This kind of thing for using external tools to generate files EA can read is something we come across often.
+*/
