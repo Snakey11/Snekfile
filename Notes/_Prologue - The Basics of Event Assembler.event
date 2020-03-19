@@ -27,6 +27,30 @@
 	Moving forward with this series
 		Join as we make a general purpose ready-to-go buildfile as more episodes are added!
 		Next episode: Text insertion?
+		
+Corrections and clarifications from the video:
+	In general, things I ENCOURAGE:
+		Format things with the goal in mind of being easy to add more stuff later down the line.
+			This is really general, but if you have a choice for how to do something, consider choosing the option that's the most "modular."
+		Readability of your buildfile is good.
+			Others may want to refer to it and see how you do something
+			You may also ask for help with something, and whoever's helping you asks to see your buildfile. In this case, readability is key.
+			Leave helpful and relevant comments everywhere, and avoid jankness. If something should be explained, don't be afraid to leave a comment!
+		Keep all your core definitions in one place (like items, classes, event macros, music, portraits, animations, etc)
+			This makes it easy to search for and edit definitions if they're all in once place. Be sure to include this early in your buildfile
+		Don't be afraid to go back and rework something if you think you can organize it better.
+		Don't use MS notepad (what ports with Windows) as your text editor. Please use something like Sublime or Notepad++.
+			Included in this project will by my personal syntax highlighting files for notepad++ and instructions for how to use them.
+		Set up Github early! Github is a tool that allows you to upload your source code (your buildfile).
+			It has version control, makes a public place for others to access your buildfile, essentially introduces automatic backups, and other fun stuff.
+	In general, things I DISCOURAGE:
+		Avoid spaces in filenames! Avoid spaces in filenames! Avoid spaces in filenames! Avoid spaces in filenames!
+			How I wish I designed Avenir's buildfile without spaces... EA is normally okay with spaces, but that doesn't mean you should use them.
+			Many scripts and software (.exes we use) will not be happy with spaces and must be designed specifically with spaces in mind.
+				make or like... anything from GNU hates spaces. Just avoid them.
+			Plus if you decide you want to start using the command line (would recommend for more experienced hackers), having spaces laying around just slows things down.
+		Avoid too many files in a single directory.
+			This falls into readability. The last thing you want is your buildfile to be clogged with stuff that could be better organized.
 */
 
 BYTE 0 // 0 - 0xFF
