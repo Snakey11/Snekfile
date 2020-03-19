@@ -1,1 +1,31 @@
 
+# 0x0356 SlimBadeNameText
+Slim Blade[X]
+
+# 0x036C GoldLanceNameText
+Gold Lance[X]
+
+# 0x0903 PrologueBeginningText
+# [FarFarLeft] | [FarLeft] [MidLeft] [Left] x [Right] [MidRight] [FarRight] | [FarFarRight]
+[FarLeft][LoadEirika]Hey.[A]
+[FarRight][LoadEirika]
+# ---------------------------------------------
+Hey, there[TMM]...[....][TMM][CloseEyes] How are you?[......] I hope you're well![NL]
+I'm trying to find the maximum line length.[OpenEyes][A][CloseSpeech][MoveRight]
+[FarLeft][Smile]I'm helping![A][CloseSpeech]
+[Right][ClearFace][FarLeft]I'm still helping.[A][X]
+
+# 0x0916
+[FarLeft][LoadEirika]
+I'm the first to die.[A][ClearFace]
+[FarRight][LoadFace][0x03][0x01]
+You are not wrong, princess![A]
+# -----------------------------
+[X]
+
+# 0x0BAA Def1Text
+# This is a comment.
+This is some text that I want to exist.[X]
+
+#include "Items/ItemText.event"
+#include "Classes/ClassText.event"
