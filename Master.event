@@ -26,7 +26,10 @@
 	
 	ORG FreeSpaceA // Normal master installer
 	
+	#include "_FE8EssentialFixes.event"
+	
 	// Install text
+	#include "Text/Install Text Data.event"
 	
 	// Install CSV tables
 	
