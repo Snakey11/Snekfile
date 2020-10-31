@@ -32,6 +32,7 @@
 	#include "Text/Install Text Data.event"
 	
 	// Install CSV tables
+	#include "Tables/DataInstaller.event"
 	
 	// Install graphics
 	

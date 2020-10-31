@@ -1,0 +1,73 @@
+NIGHTMARE MODULE FORMAT
+-----------------------
+Blank lines are ignored, so you can use them to divide stuff up and make it
+more readable.
+
+Lines beginning with # are comments.
+
+Numbers are assumed to be decimal; to indicate hex, include a "0x" prefix.
+  You can even indicate octal with a "0" prefix, if you're so inclined. :D
+
+All numeric values can be decimal or hex interchangably, with the exception
+  of table files - the values there are assumed to be hex. (This allows
+  copying and pasting from existing table files.)
+
+
+
+THE MODULE FORMAT
+-----------------
+The first line holds the module file version. For this file, that's "1".
+  No decimal points or anything fancy.
+The second line is the module description, which appears on the title 
+  bar when the module is loaded.
+The third line is the root address of the data table.
+The fourth line is the number of table entries.
+The fifth line is the length of a single entry.
+The sixth line is a filename, indicating a list of names to be used by 
+  the entry selector. If "NULL", the entry selector will only use 
+  numbers. If names run out before numbers do, the selector will continue
+  with just numbers.
+The seventh line is also a filename, indicating the table file to be used 
+  by TEXT entries. Tables here can only be letter-matching, that is, of 
+  the form XX=Y; multiple bytes or multiple characters, such as XXYY=Z, 
+  or XX=yz, are not permitted. If "NULL", standard ASCII is assumed.
+
+Here follow entry-component handlers, until the end of the file.
+
+It is recommended (for reasons of readability by humans) that a newline 
+be placed here, and also after each entry-component handler.
+
+
+
+ENTRY-COMPONENT HANDLER FORMAT
+------------------------------
+The first line contains a textual description.
+The second line contains the offset from the start of the entry.
+The third line contains the number of bytes used by the component.
+The fourth line indicates type, which is one of the following: 
+
+  TEXT - Text editbox
+  HEXA - Hex array (useful for indicating and changing unknowns)
+  NEHU - Numeric editbox, hex unsigned
+  NEDS - Numeric editbox, decimal signed
+  NEDU - Numeric editbox, decimal unsigned
+  NDHU - Numeric dropbox, hex unsigned
+  NDDU - Numeric dropbox, decimal unsigned
+
+  Binary toggles should use NEHU with something like "(binary)" in their
+  description, and an explanation in comments within the module file.
+  Types are not case-sensitive.
+
+The fifth line is the parameter file, a name list for dropboxes. It 
+  follows this format:
+
+  <number of entries to follow>
+  <numeric value> <written description>
+  <numeric value> <written description>
+  ...
+  <numeric value> <written description>
+
+  The numeric value is displayed in the context specified by Type
+  (hex or decimal, for example). This value is what is written to the
+  rom when a dropbox entry is selected and Save is used. This parameter 
+  is unused ("NULL") for editboxes.

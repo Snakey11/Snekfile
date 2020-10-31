@@ -1,0 +1,10 @@
+// Generated table output by TableManager.
+
+#include "Table Definitions.txt"
+
+#include "Items/ItemTable.event"
+#include "Items/ItemUsabilityTable.event"
+#include "Items/ItemEffectTable.event"
+#include "Items/ItemPrepScreenUsabilityTable.event"
+#include "Items/ItemTargetTable.event"
+#include "Items/SpellAssociationTable.event"

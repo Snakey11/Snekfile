@@ -1,0 +1,11 @@
+
+/*
+
+Here I'm going to loosely take note of things that I change in the Snekfile that may be referred to in previous videos/tutorials/notes.
+
+In 2: Working with CSVs...
+	I'm changing Text/_AssembleText.cmd to Text/AssembleText.bat. I'm going to stick with no underscore as convention for scripts from now on.
+		I'm also slightly editing the existing scripts to play nicer with MAKEHACK_FULL.
+	I'm adding MAKEHACK_FULL which runs all scripts to assemble data that EA needs.
+	
+*/

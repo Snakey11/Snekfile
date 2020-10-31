@@ -1,0 +1,41 @@
+
+// Welcome to Snek's Buildfile Tutorial!
+	// Chapter 2: Working with CSVs with TableManager
+
+/* Agenda:
+	Welcome from more tools! AssembleTables.bat, TableManager.exe (source included),
+		and we're going to need a table editor (like MS Excel, but there are free options out there too.)
+	What kind of data goes in a CSV?
+		Definition of an index
+		Table structure vs. list structure
+	Where did this data come from?
+	Options file that TableManager.exe expects
+	Nightmare modules (See nightmareformat.txt)
+	Vanilla data versus custom (hack) data
+	Format of each CSV
+	
+	For this segment, I'm using item data for examples for a few reasons:
+		The item table itself is extremely simple and small.
+		Item edits are really easy to test.
+		I can show multiple in-game "tables" being contained within one CSV.
+		I can show repointing of multiple tables (with my repointers file).
+		By also working with the spell association table, I can talk about the distinction between table and list format.
+	
+	TableManager is our CSV "converter." It takes a CSV and turns it into a .event file for EA.
+	It also takes TableOptions.s. This contains options about how we want each CSV to be interpreted.
+		CSV declares a CSV file to open.
+		TABLE links each CSV to a Nightmare module for interpreting what a column. There can be an arbitrary number of these commands!
+		INLINE takes a boolean for whether to write to free space or not. If not, then the NMM's vanilla offset will be used.
+		WRITE_SEQUENTIALLY ignores the far left column acting as indexes and just writes each row one after another. Takes a boolean.
+		MAX_ENTRIES tells how many entries you want to allocate for the table.
+		For a more technical/complete enumeration of what everything does:
+			CSV (Filepath/to/CSV.csv) @ Entry must start with and contain this.
+			TABLE (Label) (Filepath/to/nmm.nmm) (Optional adding offset)
+				@ The adding offset is a number (can be negative) to add to the index if writing non-sequentially. Useful for item usability/effect/etc tables.
+			TABLE (AnotherLabel) (Filepath/to/Anothernmm.nmm) (Optional adding offset)
+			@ As many of these as you like.
+			INLINE (True/False) @ Is this table in free space or overwriting vanilla data? If not, we ORG to where the NMM says this table is.
+			WRITE_SEQUENTIALLY (True/False) @ Only matters if inline. If this is True, we'll just write all this data sequentially (c2ea behavior is followed).
+				@ Otherwise, the table is filled with 0s, and each entry name is treated as a number (or EA def) index to write to in the table.
+			MAX_ENTRIES (Maximum number of entries to write. Only matters if WRITE_SEQUENTIALLY is False. 256 is assumed if undefined.)
+*/

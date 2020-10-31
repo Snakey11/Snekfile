@@ -10,13 +10,13 @@ rem You can change these filenames to whatever you like. Don't change the "%~dp0
 
 echo ---------------------------
 
-cd %~dp0
+set currDir=%~dp0
 
 rem Copy our clean ROM to overwrite our edited ROM, so EA has a clean ROM to work with.
 copy "%INPUT%" "%OUTPUT%"
 
 rem Move our working directory to EA's folder.
-cd "Event Assembler"
+cd "!currDir!Event Assembler"
 
 echo ---------------------------
 echo Assembling ROM. Please wait...
@@ -26,7 +26,9 @@ rem Run Event Assembler on our copy of FE8 clean with our buildfile master.
 Core A FE8 "-output:%OUTPUT%" "-input:%MASTER%"
 
 rem Autogenerate a ups patch of our newly assembled ROM.
-cd "%~dp0ups"
+cd "!currDir!ups"
 ups diff -b "%INPUT%" -m "%OUTPUT%" -o "%OUTPUT_UPS%"
 
-pause
+if /I not [%1]==[noPause] (
+	pause
+)
